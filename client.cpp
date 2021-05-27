@@ -14,7 +14,6 @@
 #include <netinet/in.h>
 #include <unistd.h>
 
-
 void loggin(void);
 void mainscene(void);
 void game(void);
