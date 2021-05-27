@@ -246,7 +246,6 @@ void sendDataToServer() {
 
     std::string packet = std::to_string(score) + " " + playername ;
 
-    char server_message[256] = "YOu have reached the server";
     int server_socket = socket(AF_INET, SOCK_STREAM, 0);
     struct sockaddr_in server_address;
     server_address.sin_family = AF_INET;
