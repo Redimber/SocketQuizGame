@@ -1,7 +1,7 @@
-#include<stdlib.h>
-#include<string.h>
-#include<vector>
-#include<iostream>
+#include <stdlib.h>
+#include <string.h>
+#include <vector>
+#include <iostream>
 #include <fstream>
 #include <sstream>
 #include <algorithm>
@@ -13,6 +13,7 @@
 
 #include <netinet/in.h>
 #include <unistd.h>
+
 
 void loggin(void);
 void mainscene(void);
@@ -171,11 +172,28 @@ void scoreboard() {
     printf("\n\t\t############## FST    ##################");
     printf("\n\t\t############## SETTAT ##################");
     printf("\n\t\t########################################\n");
-    exit(0);
+    char choice;
+    printf("\n\n\t\tEnter b to back: ");
+    scanf("%c",&choice);
+    scanf("%c",&choice);
+    state = MAINSCENE;
 }
 
 void help() {
 
+    printf("\n\n\t\tIf you face any technical issues you can contact one of the developers!!!");
+    printf("\n\t\t#####################################################");
+    printf("\n\t\t############ > IBRAHIM EL MOUNTASSER ################");
+    printf("\n\t\t############ > MOHAMED AMINE FAROUQ  ################");
+    printf("\n\t\t############ > OMAR BOUNIF           ################");
+    printf("\n\t\t############ > NOUREDDINE ELLAJA     ################");
+    printf("\n\t\t#####################################################");
+    char choice;
+    printf("\n\n\t\tEnter b to back: ");
+    scanf("%c",&choice);
+    scanf("%c",&choice);
+    state = MAINSCENE;
+    
 }
 
 void loadData() {
