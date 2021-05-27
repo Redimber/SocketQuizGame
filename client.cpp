@@ -1,6 +1,5 @@
 #include<stdlib.h>
 #include<string.h>
-#include<ctype.h>
 #include<vector>
 #include<iostream>
 #include <fstream>
@@ -42,15 +41,14 @@ struct QUESTION {
 std::vector<QUESTION> questionsDB;
 std::vector<std::pair<int,std::string>> scoreboardDB;
 
-char playername[100];
+std::string playername;
 int score;
 SCENESTATE state;
 
-using namespace std;
 
 int main() {
-    loadData();
-    state = LOGININ;
+   loadData();
+   state = LOGININ;
 
     while(true) {
         system("clear");
@@ -98,14 +96,14 @@ void loggin() {
 
     printf("\n");
     printf("\n\t\t > ENTER YOUR NICKNAME: ");
-    scanf("%s",playername);
+    std::cin>>playername;
     state = MAINSCENE;
 }
 
 void mainscene() {
 
     printf("\n\t\t########################################");
-    printf("\n\t\t\t  Hello %s\n",playername) ;
+    printf("\n\t\t\t  Hello %s\n",playername.c_str()) ;
     printf("\n\t\t########################################");
     printf("\n\t\t### > Enter S to start the game      ###");
     printf("\n\t\t### > Enter V to view the scoreboard ###");
@@ -129,8 +127,7 @@ void mainscene() {
             state = HELP;
             break;
         case 'Q': 
-            state = EXIT;
-            break;
+            state = EXIT; break;
     }
 
 }
@@ -153,6 +150,7 @@ void game() {
 
     }
     scoreboardDB.push_back({score,playername});
+    sendDataToServer();
     state = SCOREBOARD;
 
 }
@@ -228,6 +226,29 @@ void loadData() {
 
 
 void sendDataToServer() {
+
+    std::string packet = std::to_string(score) + " " + playername ;
+
+    char server_message[256] = "YOu have reached the server";
+    int server_socket = socket(AF_INET, SOCK_STREAM, 0);
+    struct sockaddr_in server_address;
+    server_address.sin_family = AF_INET;
+    server_address.sin_port = htons(9002);
+    server_address.sin_addr.s_addr = INADDR_ANY;
+
+
+    bind(server_socket, (struct sockaddr*) &server_address, sizeof(server_address));
+
+    listen(server_socket,5);
+
+
+    int client_socket = accept(server_socket,NULL,NULL);
+
+
+    send(client_socket, packet.c_str(), sizeof(packet), 0);
+
+    close(server_socket);
+
 }
 
 
